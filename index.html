@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Indonesia Agricultural Production Forecast</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f7f5f0;color:#1a1a1a;font-size:15px}
+.app{max-width:1100px;margin:0 auto;padding:24px 20px}
+.header{background:linear-gradient(135deg,#1a4730 0%,#2d6a4f 60%,#40916c 100%);border-radius:16px;padding:36px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:20px}
+.header::before{content:'';position:absolute;right:-40px;top:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.header::after{content:'';position:absolute;right:60px;bottom:-60px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.04)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between}
+.header-badge{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:rgba(255,255,255,0.9);margin-bottom:12px;display:inline-block}
+.header h1{font-family:'DM Serif Display',serif;font-size:30px;font-weight:400;line-height:1.2;margin-bottom:8px}
+.header p{font-size:14px;color:rgba(255,255,255,0.7);font-weight:300}
+.header-icon{font-size:60px;opacity:0.8;position:relative;z-index:1}
+.filters{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:20px;border:1px solid rgba(0,0,0,0.07);display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.filter-group label{display:block;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#888;margin-bottom:6px}
+.filter-group select{width:100%;padding:9px 12px;border:1px solid #e0ddd7;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1a1a;background:#fafaf8;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer}
+.filter-group select:focus{outline:none;border-color:#40916c;box-shadow:0 0 0 3px rgba(64,145,108,0.1)}
+.model-desc{font-size:11px;color:#aaa;margin-top:4px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.metric-card{background:#fff;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,0.07)}
+.metric-label{font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:8px}
+.metric-value{font-size:28px;font-weight:600;color:#1a1a1a;margin-bottom:6px}
+.metric-change{font-size:12px;display:flex;align-items:center;gap:4px}
+.metric-icon{font-size:22px;float:right;margin-top:-4px;opacity:0.6}
+.positive{color:#2d6a4f}.negative{color:#c62828}
+.chart-card{background:#fff;border-radius:12px;padding:24px;border:1px solid rgba(0,0,0,0.07);margin-bottom:20px}
+.chart-card h2{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;color:#1a1a1a;margin-bottom:4px}
+.chart-subtitle{font-size:13px;color:#aaa;margin-bottom:20px}
+.legend{display:flex;gap:20px;margin-bottom:16px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#555}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+.bottom-grid{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.factor-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:8px;margin-bottom:8px;border:1px solid}
+.factor-good{background:#f0f7f4;border-color:#b7dfce;color:#2d6a4f}
+.factor-warning{background:#fffbf0;border-color:#f5dda0;color:#8a6a00}
+.factor-critical{background:#fff5f5;border-color:#f5c0c0;color:#c62828}
+.factor-left{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
+.factor-val{font-size:13px;font-weight:600}
+.status-pill{font-size:10px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;padding:2px 8px;border-radius:10px}
+.pill-good{background:#2d6a4f;color:#fff}
+.pill-warning{background:#f0a500;color:#fff}
+@media(max-width:768px){
+  .filters{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.bottom-grid{grid-template-columns:1fr}
+  .header{padding:24px 20px}.header h1{font-size:22px}.header-icon{font-size:40px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="header-badge">Live Dashboard</div>
+        <h1>Indonesia Agricultural<br>Production Forecast</h1>
+        <p id="header-sub">Rice Paddy (Padi) — Data-driven insights for agricultural planning</p>
+      </div>
+      <div class="header-icon" id="header-icon">🌾</div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label>Region</label>
+      <select id="region-select">
+        <option value="all">All Indonesia</option>
+        <option value="jawa-barat">Jawa Barat</option>
+        <option value="jawa-tengah">Jawa Tengah</option>
+        <option value="jawa-timur">Jawa Timur</option>
+        <option value="sumatera-utara">Sumatera Utara</option>
+        <option value="sumatera-selatan">Sumatera Selatan</option>
+        <option value="sulawesi-selatan">Sulawesi Selatan</option>
+        <option value="kalimantan-selatan">Kalimantan Selatan</option>
+        <option value="lampung">Lampung</option>
+        <option value="banten">Banten</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Commodity</label>
+      <select id="commodity-select">
+        <option value="rice">🌾 Rice Paddy (Padi)</option>
+        <option value="corn">🌽 Corn (Jagung)</option>
+        <option value="soybean">🫘 Soybean (Kedelai)</option>
+        <option value="cassava">🥔 Cassava (Singkong)</option>
+        <option value="peanut">🥜 Peanut (Kacang Tanah)</option>
+        <option value="sugarcane">🎋 Sugarcane (Tebu)</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Forecasting Model</label>
+      <select id="model-select">
+        <option value="arima">ARIMA</option>
+        <option value="lstm">LSTM Neural Network</option>
+        <option value="random-forest">Random Forest</option>
+        <option value="prophet">Prophet</option>
+        <option value="sarima">SARIMA</option>
+        <option value="ensemble">Ensemble Model</option>
+      </select>
+      <div class="model-desc" id="model-desc">Time series statistical model</div>
+    </div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric-card">
+      <div class="metric-label">Total Production <span class="metric-icon">🌾</span></div>
+      <div class="metric-value" id="m-production">—</div>
+      <div class="metric-change positive">▲ +8.5% vs last year</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Forecast Growth <span class="metric-icon">📈</span></div>
+      <div class="metric-value" id="m-growth">—</div>
+      <div class="metric-change positive">▲ +2.1% vs last year</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Model Accuracy <span class="metric-icon">🎯</span></div>
+      <div class="metric-value" id="m-accuracy">—</div>
+      <div class="metric-change positive">▲ +1.2% vs last year</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Yield / Hectare <span class="metric-icon">🌱</span></div>
+      <div class="metric-value">4.2T</div>
+      <div class="metric-change positive">▲ +5.8% vs last year</div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <h2>Production Forecast</h2>
+    <div class="chart-subtitle">Monthly actual vs projected — shaded band shows model confidence interval</div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#40916c"></div> Actual</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4895ef;opacity:0.6"></div> Forecast</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#93c5fd;opacity:0.5;width:18px;height:10px;border-radius:3px"></div> Confidence Band</div>
+    </div>
+    <div style="position:relative;width:100%;height:300px">
+      <canvas id="forecastChart" role="img" aria-label="Line chart showing monthly agricultural production forecast"></canvas>
+    </div>
+  </div>
+
+  <div class="bottom-grid">
+    <div class="chart-card" style="margin-bottom:0">
+      <h2>Regional Breakdown</h2>
+      <div class="chart-subtitle">Current vs forecast production by province</div>
+      <div style="position:relative;width:100%;height:280px">
+        <canvas id="regionalChart" role="img" aria-label="Bar chart comparing current and forecast production by region"></canvas>
+      </div>
+    </div>
+    <div class="chart-card" style="margin-bottom:0">
+      <h2>Key Factors</h2>
+      <div class="chart-subtitle">Environmental conditions affecting yield</div>
+      <div id="factors-panel"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const commodityInfo={rice:{name:'Rice Paddy (Padi)',icon:'🌾',base:150,regBase:450},corn:{name:'Corn (Jagung)',icon:'🌽',base:200,regBase:550},soybean:{name:'Soybean (Kedelai)',icon:'🫘',base:80,regBase:180},cassava:{name:'Cassava (Singkong)',icon:'🥔',base:300,regBase:800},peanut:{name:'Peanut (Kacang Tanah)',icon:'🥜',base:60,regBase:120},sugarcane:{name:'Sugarcane (Tebu)',icon:'🎋',base:500,regBase:1200}};
+const regionMult={all:1,'jawa-barat':1.2,'jawa-tengah':1.1,'jawa-timur':1.15,'sumatera-utara':0.9,'sumatera-selatan':0.85,'sulawesi-selatan':0.8,'kalimantan-selatan':0.7,lampung:0.75,banten:0.65};
+const modelInfo={arima:{desc:'Time series statistical model',acc:92.5,variance:0.05},lstm:{desc:'Deep learning approach',acc:94.8,variance:0.08},'random-forest':{desc:'Machine learning ensemble',acc:91.2,variance:0.06},prophet:{desc:'Facebook forecasting model',acc:93.1,variance:0.07},sarima:{desc:'Seasonal ARIMA',acc:92.8,variance:0.05},ensemble:{desc:'Combined predictions',acc:95.3,variance:0.04}};
+const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const regions=['Jawa Barat','Jawa Tengah','Jawa Timur','Sumatera Utara','Sumatera Selatan'];
+let state={region:'all',commodity:'rice',model:'arima'};
+let fChart,rChart;
+
+function genForecast(c,r,m){
+  const base=commodityInfo[c].base*(regionMult[r]||1);
+  const v=modelInfo[m].variance;
+  return months.map((mo,i)=>{
+    const val=base+i*2+Math.sin(i*Math.PI/6)*10;
+    return{month:mo,actual:i<6?Math.round(val+((i*7+3)%10-5)):null,forecast:Math.round(val+(i>=6?5:0)),lower:Math.round(val*(1-v)+(i>=6?5:0)),upper:Math.round(val*(1+v)+(i>=6?5:0))};
+  });
+}
+function genRegional(c,m){
+  const base=commodityInfo[c].regBase;
+  const growth=m==='ensemble'?1.08:m==='lstm'?1.12:1.07;
+  return regions.map((reg,i)=>{const cur=Math.round(base*(1-i*0.15));return{region:reg,current:cur,forecast:Math.round(cur*growth)};});
+}
+
+function update(){
+  const{region,commodity,model}=state;
+  const info=commodityInfo[commodity];
+  const mi=modelInfo[model];
+  const fd=genForecast(commodity,region,model);
+  const rd=genRegional(commodity,model);
+  document.getElementById('header-sub').textContent=info.name+' — Data-driven insights for agricultural planning';
+  document.getElementById('header-icon').textContent=info.icon;
+  document.getElementById('model-desc').textContent=mi.desc;
+  document.getElementById('m-accuracy').textContent=mi.acc+'%';
+  const totalCur=rd.reduce((s,r)=>s+r.current,0);
+  const totalFc=rd.reduce((s,r)=>s+r.forecast,0);
+  document.getElementById('m-production').textContent=(totalCur/1000).toFixed(1)+'K';
+  document.getElementById('m-growth').textContent=((totalFc-totalCur)/totalCur*100).toFixed(1)+'%';
+
+  if(fChart)fChart.destroy();
+  fChart=new Chart(document.getElementById('forecastChart'),{type:'line',data:{labels:months,datasets:[
+    {label:'Upper Band',data:fd.map(d=>d.upper),borderWidth:0,pointRadius:0,fill:'+1',backgroundColor:'rgba(72,149,239,0.12)',tension:0.4},
+    {label:'Lower Band',data:fd.map(d=>d.lower),borderWidth:0,pointRadius:0,fill:false,tension:0.4},
+    {label:'Actual',data:fd.map(d=>d.actual),borderColor:'#40916c',borderWidth:2.5,backgroundColor:'rgba(64,145,108,0.08)',pointBackgroundColor:'#40916c',pointRadius:4,fill:true,tension:0.4,spanGaps:false},
+    {label:'Forecast',data:fd.map(d=>d.forecast),borderColor:'#4895ef',borderWidth:2.5,borderDash:[6,4],pointBackgroundColor:'#4895ef',pointRadius:4,fill:false,tension:0.4}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#999'}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#999'},title:{display:true,text:'Tonnes (000s)',font:{family:'DM Sans',size:11},color:'#bbb'}}}}});
+
+  if(rChart)rChart.destroy();
+  rChart=new Chart(document.getElementById('regionalChart'),{type:'bar',data:{labels:rd.map(r=>r.region),datasets:[
+    {label:'Current Year',data:rd.map(r=>r.current),backgroundColor:'#40916c',borderRadius:6},
+    {label:'Forecast',data:rd.map(r=>r.forecast),backgroundColor:'rgba(72,149,239,0.7)',borderRadius:6}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{family:'DM Sans',size:11},boxWidth:10,padding:16}}},scales:{x:{grid:{display:false},ticks:{font:{family:'DM Sans',size:10},color:'#999',maxRotation:30}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#999'}}}}});
+
+  const factors=[{name:'Rainfall',value:'1,250mm',status:'good',icon:'☁️'},{name:'Irrigation',value:'92% coverage',status:'good',icon:'💧'},{name:'Temperature',value:'28.5°C avg',status:'warning',icon:'🌡️'},{name:'Soil Quality',value:'Optimal',status:'good',icon:'🌱'}];
+  document.getElementById('factors-panel').innerHTML=factors.map(f=>`<div class="factor-item factor-${f.status}"><div class="factor-left">${f.icon} <span>${f.name}</span></div><div style="display:flex;align-items:center;gap:8px"><span class="factor-val">${f.value}</span><span class="status-pill pill-${f.status}">${f.status}</span></div></div>`).join('');
+}
+
+document.getElementById('region-select').addEventListener('change',e=>{state.region=e.target.value;update();});
+document.getElementById('commodity-select').addEventListener('change',e=>{state.commodity=e.target.value;update();});
+document.getElementById('model-select').addEventListener('change',e=>{state.model=e.target.value;update();});
+update();
+</script>
+</body>
+</html>
