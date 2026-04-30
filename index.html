@@ -1,69 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="dicoding:email" content="aufarromeo@gmail.com">
+<meta name="dicoding:email" content="drahmakirana@gmail.com">
+<meta name="dicoding:email" content="sabinaaisha1003@gmail.com">  
 <title>Indonesia Agricultural Production Forecast</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#f7f5f0;color:#1a1a1a;font-size:15px}
-.app{max-width:1100px;margin:0 auto;padding:24px 20px}
-.header{background:linear-gradient(135deg,#1a4730 0%,#2d6a4f 60%,#40916c 100%);border-radius:16px;padding:36px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:20px}
-.header::before{content:'';position:absolute;right:-40px;top:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,0.05)}
-.header::after{content:'';position:absolute;right:60px;bottom:-60px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.04)}
+:root{
+  --green-dark:#1a4730;--green-mid:#2d6a4f;--green-base:#40916c;--green-light:#52b788;
+  --blue:#4895ef;--red:#e63946;--orange:#f4a261;--yellow:#e9c46a;
+  --bg:#f7f5f0;--white:#fff;--card-border:rgba(0,0,0,0.08);
+  --text:#1a1a1a;--text-muted:#888;--text-sub:#555;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;min-height:100vh}
+.app{max-width:1140px;margin:0 auto;padding:24px 20px 60px}
+
+/* NAV */
+.nav{display:flex;gap:4px;background:var(--white);border-radius:14px;padding:6px;margin-bottom:22px;border:1px solid var(--card-border);box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.nav-btn{flex:1;padding:10px 16px;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;background:transparent;color:var(--text-muted);transition:all .2s;letter-spacing:0.02em}
+.nav-btn.active{background:var(--green-base);color:#fff;box-shadow:0 2px 8px rgba(64,145,108,0.35)}
+.nav-btn:hover:not(.active){background:#f0ede6;color:var(--text)}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,var(--green-dark) 0%,var(--green-mid) 55%,var(--green-base) 100%);border-radius:16px;padding:36px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:20px}
+.header::before{content:'';position:absolute;right:-40px;top:-40px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.header::after{content:'';position:absolute;right:70px;bottom:-70px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.04)}
 .header-top{display:flex;align-items:flex-start;justify-content:space-between}
-.header-badge{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:rgba(255,255,255,0.9);margin-bottom:12px;display:inline-block}
-.header h1{font-family:'DM Serif Display',serif;font-size:30px;font-weight:400;line-height:1.2;margin-bottom:8px}
-.header p{font-size:14px;color:rgba(255,255,255,0.7);font-weight:300}
-.header-icon{font-size:60px;opacity:0.8;position:relative;z-index:1}
-.filters{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:20px;border:1px solid rgba(0,0,0,0.07);display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
-.filter-group label{display:block;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#888;margin-bottom:6px}
-.filter-group select{width:100%;padding:9px 12px;border:1px solid #e0ddd7;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1a1a;background:#fafaf8;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer}
-.filter-group select:focus{outline:none;border-color:#40916c;box-shadow:0 0 0 3px rgba(64,145,108,0.1)}
-.model-desc{font-size:11px;color:#aaa;margin-top:4px}
+.header-badge{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.28);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.92);margin-bottom:12px;display:inline-block}
+.header h1{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;line-height:1.25;margin-bottom:8px}
+.header p{font-size:14px;color:rgba(255,255,255,0.72);font-weight:300}
+.header-icon{font-size:58px;opacity:0.85;position:relative;z-index:1;user-select:none}
+
+/* FILTERS */
+.filters{background:var(--white);border-radius:12px;padding:20px 24px;margin-bottom:20px;border:1px solid var(--card-border);display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.filter-group label{display:block;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.filter-group select{width:100%;padding:9px 36px 9px 12px;border:1.5px solid #e0ddd7;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:#fafaf8;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath fill='%23888' d='M6 7L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;transition:border-color .2s}
+.filter-group select:focus{outline:none;border-color:var(--green-base);box-shadow:0 0 0 3px rgba(64,145,108,0.12)}
+.model-desc{font-size:11px;color:#bbb;margin-top:5px;min-height:16px}
+
+/* METRICS */
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
-.metric-card{background:#fff;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,0.07)}
-.metric-label{font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:8px}
-.metric-value{font-size:28px;font-weight:600;color:#1a1a1a;margin-bottom:6px}
-.metric-change{font-size:12px;display:flex;align-items:center;gap:4px}
-.metric-icon{font-size:22px;float:right;margin-top:-4px;opacity:0.6}
-.positive{color:#2d6a4f}.negative{color:#c62828}
-.chart-card{background:#fff;border-radius:12px;padding:24px;border:1px solid rgba(0,0,0,0.07);margin-bottom:20px}
-.chart-card h2{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;color:#1a1a1a;margin-bottom:4px}
-.chart-subtitle{font-size:13px;color:#aaa;margin-bottom:20px}
-.legend{display:flex;gap:20px;margin-bottom:16px;flex-wrap:wrap}
-.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#555}
-.legend-dot{width:10px;height:10px;border-radius:50%}
-.bottom-grid{display:grid;grid-template-columns:2fr 1fr;gap:20px}
-.factor-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:8px;margin-bottom:8px;border:1px solid}
-.factor-good{background:#f0f7f4;border-color:#b7dfce;color:#2d6a4f}
-.factor-warning{background:#fffbf0;border-color:#f5dda0;color:#8a6a00}
-.factor-critical{background:#fff5f5;border-color:#f5c0c0;color:#c62828}
+.metric-card{background:var(--white);border-radius:12px;padding:20px;border:1px solid var(--card-border)}
+.metric-label{font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#bbb;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
+.metric-icon-sm{font-size:18px;opacity:0.7}
+.metric-value{font-size:30px;font-weight:700;color:var(--text);margin-bottom:6px;font-feature-settings:'tnum'}
+.metric-change{font-size:12px;font-weight:500}
+.positive{color:var(--green-base)}.negative{color:var(--red)}
+
+/* CHART CARDS */
+.card{background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--card-border);margin-bottom:20px}
+.card h2{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;color:var(--text);margin-bottom:4px}
+.card-sub{font-size:13px;color:#bbb;margin-bottom:18px}
+.legend{display:flex;gap:18px;margin-bottom:14px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-sub)}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.legend-rect{width:18px;height:8px;border-radius:2px;flex-shrink:0}
+.legend-dash{width:18px;height:0;border-top:2.5px dashed;flex-shrink:0}
+.chart-wrap{position:relative;width:100%;height:300px}
+.bottom-grid{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:20px}
+
+/* FACTORS */
+.factor-item{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;border-radius:8px;margin-bottom:8px;border:1px solid}
+.factor-good{background:#f0f7f4;border-color:#b7dfce;color:#1a5c3a}
+.factor-warning{background:#fffbf0;border-color:#f5dda0;color:#7a5c00}
+.factor-critical{background:#fff5f5;border-color:#f5c0c0;color:#c22828}
 .factor-left{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
 .factor-val{font-size:13px;font-weight:600}
-.status-pill{font-size:10px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;padding:2px 8px;border-radius:10px}
-.pill-good{background:#2d6a4f;color:#fff}
-.pill-warning{background:#f0a500;color:#fff}
+.status-pill{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:2px 9px;border-radius:20px}
+.pill-good{background:#2d6a4f;color:#fff}.pill-warning{background:#e08800;color:#fff}.pill-critical{background:#c22828;color:#fff}
+
+/* ========== SHAP PAGE ========== */
+.shap-header{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.info-badge{display:inline-flex;align-items:center;gap:5px;background:#f0f7f4;border:1px solid #b7dfce;color:#2d6a4f;font-size:11px;font-weight:600;border-radius:20px;padding:3px 10px;letter-spacing:0.05em}
+.shap-bar-container{margin-bottom:10px}
+.shap-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.shap-label{font-size:12px;color:var(--text-sub);width:160px;flex-shrink:0;text-align:right;font-weight:500}
+.shap-track{flex:1;height:28px;position:relative;background:#f5f3ee;border-radius:6px;overflow:hidden}
+.shap-bar-pos{height:100%;border-radius:6px;background:linear-gradient(90deg,#52b788,#2d6a4f);transition:width .5s}
+.shap-bar-neg{height:100%;border-radius:6px;background:linear-gradient(90deg,#e63946,#c22828);transition:width .5s}
+.shap-val{font-size:11px;color:var(--text-muted);width:48px;text-align:left;font-weight:600}
+.shap-desc{font-size:10px;color:#ccc;margin-top:2px}
+.shap-mid{width:1px;background:#ddd;height:100%;position:absolute;left:50%}
+.drivers-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.driver-box{border-radius:10px;padding:16px;border:1px solid}
+.driver-box.pos{background:#f0f7f4;border-color:#b7dfce}
+.driver-box.neg{background:#fff5f5;border-color:#f5c0c0}
+.driver-box h3{font-size:13px;font-weight:700;margin-bottom:8px}
+.driver-box.pos h3{color:#1a5c3a}.driver-box.neg h3{color:#c22828}
+.driver-box li{font-size:12px;list-style:none;padding:3px 0;border-bottom:1px solid rgba(0,0,0,0.05);display:flex;justify-content:space-between}
+.shap-waterfall{margin-top:20px}
+.wf-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.wf-label{font-size:11px;color:var(--text-sub);width:130px;text-align:right;flex-shrink:0}
+.wf-track{flex:1;height:22px;background:#f5f3ee;border-radius:5px;position:relative;overflow:hidden}
+.wf-bar{height:100%;border-radius:5px;position:absolute;transition:all .5s}
+.wf-val{font-size:11px;font-weight:600;width:50px}
+
+/* ========== RISK PAGE ========== */
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.risk-scenarios{display:flex;flex-direction:column;gap:10px}
+.scenario-card{border-radius:10px;padding:16px;border:1.5px solid;display:flex;gap:12px;align-items:flex-start}
+.sc-drought{background:#fffbf0;border-color:#f5dda0}
+.sc-flood{background:#fff5f5;border-color:#f5c0c0}
+.sc-pest{background:#fff8ed;border-color:#fcd5a0}
+.sc-heat{background:#fff3f0;border-color:#f5c8b8}
+.sc-icon{font-size:26px;flex-shrink:0;margin-top:2px}
+.sc-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.sc-stats{display:flex;gap:12px;margin-bottom:8px}
+.sc-stat{font-size:11px;color:var(--text-sub)}
+.sc-stat strong{font-size:16px;font-weight:700;display:block}
+.sc-stat strong.hi{color:#c22828}.sc-stat strong.med{color:#e08800}.sc-stat strong.lo{color:#2d6a4f}
+.sc-gauge{width:100%;height:6px;background:rgba(0,0,0,0.08);border-radius:3px;overflow:hidden;margin-top:4px}
+.sc-gauge-fill{height:100%;border-radius:3px;transition:width .5s}
+.gauge-red{background:linear-gradient(90deg,#f4a261,#e63946)}
+.gauge-orange{background:linear-gradient(90deg,#e9c46a,#f4a261)}
+.gauge-yellow{background:linear-gradient(90deg,#e9c46a,#e08800)}
+.overall-risk{background:linear-gradient(135deg,#fff5f5 0%,#fff8f0 100%);border:1.5px solid #f5c0c0;border-radius:14px;padding:24px;margin-bottom:20px}
+.risk-meters{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.risk-meter{background:var(--white);border-radius:10px;padding:16px;border:1px solid #f5c0c0;text-align:center}
+.risk-meter-label{font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
+.risk-meter-val{font-size:32px;font-weight:700;margin-bottom:2px}
+.risk-meter-sub{font-size:11px;color:var(--text-muted)}
+.reco{background:rgba(255,255,255,0.8);border-radius:10px;padding:14px 16px;margin-top:14px;border-left:4px solid var(--orange);font-size:13px;color:var(--text-sub);line-height:1.6}
+.reco strong{color:var(--text)}
+/* GEV curve tick labels */
+.eva-note{font-size:11px;color:#bbb;margin-top:8px;text-align:right}
+.risk-legend{display:flex;gap:16px;margin-bottom:12px;font-size:12px;flex-wrap:wrap}
+.risk-legend-item{display:flex;align-items:center;gap:6px}
+.rl-dot{width:12px;height:3px;border-radius:2px}
+
+/* RESPONSIVE */
 @media(max-width:768px){
-  .filters{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.bottom-grid{grid-template-columns:1fr}
+  .filters{grid-template-columns:1fr}
+  .metrics{grid-template-columns:1fr 1fr}
+  .bottom-grid,.risk-grid,.drivers-grid{grid-template-columns:1fr}
   .header{padding:24px 20px}.header h1{font-size:22px}.header-icon{font-size:40px}
+  .shap-label,.wf-label{width:110px}
+  .risk-meters{grid-template-columns:1fr 1fr}
+  .nav-btn{font-size:11px;padding:8px 8px}
 }
 </style>
 </head>
 <body>
 <div class="app">
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showPage('dashboard')">📊 Dashboard</button>
+    <button class="nav-btn" onclick="showPage('shap')">🔍 SHAP Explanation</button>
+    <button class="nav-btn" onclick="showPage('risk')">⚠️ Risk Analysis</button>
+  </nav>
+
+  <!-- HEADER (shared) -->
   <div class="header">
     <div class="header-top">
       <div>
-        <div class="header-badge">Live Dashboard</div>
-        <h1>Indonesia Agricultural<br>Production Forecast</h1>
-        <p id="header-sub">Rice Paddy (Padi) — Data-driven insights for agricultural planning</p>
+        <div class="header-badge" id="page-badge">Live Dashboard</div>
+        <h1 id="page-title">Indonesia Agricultural<br>Production Forecast</h1>
+        <p id="page-sub">Rice Paddy (Padi) — Data-driven insights for agricultural planning</p>
       </div>
       <div class="header-icon" id="header-icon">🌾</div>
     </div>
   </div>
 
+  <!-- FILTERS (shared) -->
   <div class="filters">
     <div class="filter-group">
       <label>Region</label>
@@ -105,119 +208,523 @@ body{font-family:'DM Sans',sans-serif;background:#f7f5f0;color:#1a1a1a;font-size
     </div>
   </div>
 
-  <div class="metrics">
-    <div class="metric-card">
-      <div class="metric-label">Total Production <span class="metric-icon">🌾</span></div>
-      <div class="metric-value" id="m-production">—</div>
-      <div class="metric-change positive">▲ +8.5% vs last year</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">Forecast Growth <span class="metric-icon">📈</span></div>
-      <div class="metric-value" id="m-growth">—</div>
-      <div class="metric-change positive">▲ +2.1% vs last year</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">Model Accuracy <span class="metric-icon">🎯</span></div>
-      <div class="metric-value" id="m-accuracy">—</div>
-      <div class="metric-change positive">▲ +1.2% vs last year</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">Yield / Hectare <span class="metric-icon">🌱</span></div>
-      <div class="metric-value">4.2T</div>
-      <div class="metric-change positive">▲ +5.8% vs last year</div>
-    </div>
-  </div>
-
-  <div class="chart-card">
-    <h2>Production Forecast</h2>
-    <div class="chart-subtitle">Monthly actual vs projected — shaded band shows model confidence interval</div>
-    <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#40916c"></div> Actual</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#4895ef;opacity:0.6"></div> Forecast</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#93c5fd;opacity:0.5;width:18px;height:10px;border-radius:3px"></div> Confidence Band</div>
-    </div>
-    <div style="position:relative;width:100%;height:300px">
-      <canvas id="forecastChart" role="img" aria-label="Line chart showing monthly agricultural production forecast"></canvas>
-    </div>
-  </div>
-
-  <div class="bottom-grid">
-    <div class="chart-card" style="margin-bottom:0">
-      <h2>Regional Breakdown</h2>
-      <div class="chart-subtitle">Current vs forecast production by province</div>
-      <div style="position:relative;width:100%;height:280px">
-        <canvas id="regionalChart" role="img" aria-label="Bar chart comparing current and forecast production by region"></canvas>
+  <!-- ======================== PAGE: DASHBOARD ======================== -->
+  <div id="page-dashboard">
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-label">Total Production <span class="metric-icon-sm">🌾</span></div>
+        <div class="metric-value" id="m-production">—</div>
+        <div class="metric-change positive">▲ +8.5% vs last year</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Forecast Growth <span class="metric-icon-sm">📈</span></div>
+        <div class="metric-value" id="m-growth">—</div>
+        <div class="metric-change positive">▲ +2.1% vs prev forecast</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Model Accuracy <span class="metric-icon-sm">🎯</span></div>
+        <div class="metric-value" id="m-accuracy">—</div>
+        <div class="metric-change positive">▲ +1.2% vs last year</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Yield / Hectare <span class="metric-icon-sm">🌱</span></div>
+        <div class="metric-value">4.2T</div>
+        <div class="metric-change positive">▲ +5.8% vs last year</div>
       </div>
     </div>
-    <div class="chart-card" style="margin-bottom:0">
-      <h2>Key Factors</h2>
-      <div class="chart-subtitle">Environmental conditions affecting yield</div>
-      <div id="factors-panel"></div>
+
+    <div class="card">
+      <h2>Production Forecast</h2>
+      <div class="card-sub">Monthly actual vs projected — shaded band = 95% confidence interval</div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#40916c"></div>Actual</div>
+        <div class="legend-item"><div class="legend-dash" style="border-color:#4895ef"></div>Forecast</div>
+        <div class="legend-item"><div class="legend-rect" style="background:rgba(72,149,239,0.18)"></div>95% CI Band</div>
+      </div>
+      <div class="chart-wrap"><canvas id="forecastChart"></canvas></div>
+    </div>
+
+    <div class="bottom-grid">
+      <div class="card" style="margin-bottom:0">
+        <h2>Regional Breakdown</h2>
+        <div class="card-sub">Current vs forecast production by province</div>
+        <div class="chart-wrap" style="height:280px"><canvas id="regionalChart"></canvas></div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <h2>Key Factors</h2>
+        <div class="card-sub">Environmental conditions affecting yield</div>
+        <div id="factors-panel"></div>
+      </div>
     </div>
   </div>
-</div>
+
+  <!-- ======================== PAGE: SHAP ======================== -->
+  <div id="page-shap" style="display:none">
+    <div class="card">
+      <div class="shap-header">
+        <h2 style="margin-bottom:0">SHAP Feature Importance</h2>
+        <span class="info-badge">ℹ️ Explainability</span>
+      </div>
+      <div class="card-sub" style="margin-top:4px">Impact of exogenous variables on production forecast. Positive (green) = increases yield, Negative (red) = reduces yield.</div>
+
+      <div id="shap-bars" class="shap-bar-container"></div>
+
+      <div class="drivers-grid">
+        <div class="driver-box pos">
+          <h3>✅ Positive Drivers</h3>
+          <ul id="shap-pos-list"></ul>
+        </div>
+        <div class="driver-box neg">
+          <h3>⛔ Negative Drivers</h3>
+          <ul id="shap-neg-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>SHAP Waterfall — Top 6 Variables</h2>
+      <div class="card-sub">Cumulative contribution from model base value to final prediction</div>
+      <div id="shap-waterfall"></div>
+      <div style="height:300px;position:relative"><canvas id="shapChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ======================== PAGE: RISK ======================== -->
+  <div id="page-risk" style="display:none">
+    <div class="risk-grid">
+      <!-- EVA Chart -->
+      <div class="card" style="margin-bottom:0">
+        <h2>Extreme Value Analysis</h2>
+        <div class="card-sub">GEV distribution — probability of production loss by return period</div>
+        <div class="risk-legend">
+          <div class="risk-legend-item"><div class="rl-dot" style="background:#e63946"></div><span>Expected Loss %</span></div>
+          <div class="risk-legend-item"><div class="rl-dot" style="background:#f4a261;border-top:2px dashed #f4a261;height:0"></div><span>Warning (30%)</span></div>
+          <div class="risk-legend-item"><div class="rl-dot" style="background:#e63946;border-top:2px dashed #e63946;height:0"></div><span>Critical (50%)</span></div>
+        </div>
+        <div class="chart-wrap" style="height:280px"><canvas id="evaChart"></canvas></div>
+        <div class="eva-note">Based on GEV (Generalized Extreme Value) distribution fitting</div>
+      </div>
+
+      <!-- Scenarios -->
+      <div class="card" style="margin-bottom:0">
+        <h2>Risk Scenarios</h2>
+        <div class="card-sub">Annual exceedance probability of extreme events</div>
+        <div class="risk-scenarios" id="risk-scenarios"></div>
+      </div>
+    </div>
+
+    <!-- Overall Risk -->
+    <div class="overall-risk">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+        <span style="font-size:28px">⚠️</span>
+        <h2 style="font-family:'DM Serif Display',serif;font-size:20px;font-weight:400">Overall Risk Assessment</h2>
+      </div>
+      <div class="card-sub" style="margin-bottom:0">Composite risk score integrating climate, pest, and market factors for selected commodity & region</div>
+      <div class="risk-meters">
+        <div class="risk-meter">
+          <div class="risk-meter-label">Current Year Risk</div>
+          <div class="risk-meter-val" id="r-current" style="color:#e08800">—</div>
+          <div class="risk-meter-sub" id="r-current-label">Moderate</div>
+        </div>
+        <div class="risk-meter">
+          <div class="risk-meter-label">Next Year Forecast</div>
+          <div class="risk-meter-val" id="r-next" style="color:#e63946">—</div>
+          <div class="risk-meter-sub" id="r-next-label">Elevated</div>
+        </div>
+        <div class="risk-meter">
+          <div class="risk-meter-label">Risk Trend</div>
+          <div class="risk-meter-val" id="r-trend" style="color:#e63946">—</div>
+          <div class="risk-meter-sub">Increasing ↑</div>
+        </div>
+      </div>
+      <div class="reco">
+        <strong>Recommendation:</strong> Implement risk mitigation strategies including crop insurance, diversified planting schedules, integrated pest management, and improved irrigation infrastructure to reduce exposure to extreme weather events.
+      </div>
+    </div>
+
+    <!-- Return Period Table -->
+    <div class="card">
+      <h2>Return Period Risk Table</h2>
+      <div class="card-sub">Probability and expected loss for extreme production shortfall events</div>
+      <div style="overflow-x:auto">
+        <table id="risk-table" style="width:100%;border-collapse:collapse;font-size:13px"></table>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .app -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-const commodityInfo={rice:{name:'Rice Paddy (Padi)',icon:'🌾',base:150,regBase:450},corn:{name:'Corn (Jagung)',icon:'🌽',base:200,regBase:550},soybean:{name:'Soybean (Kedelai)',icon:'🫘',base:80,regBase:180},cassava:{name:'Cassava (Singkong)',icon:'🥔',base:300,regBase:800},peanut:{name:'Peanut (Kacang Tanah)',icon:'🥜',base:60,regBase:120},sugarcane:{name:'Sugarcane (Tebu)',icon:'🎋',base:500,regBase:1200}};
-const regionMult={all:1,'jawa-barat':1.2,'jawa-tengah':1.1,'jawa-timur':1.15,'sumatera-utara':0.9,'sumatera-selatan':0.85,'sulawesi-selatan':0.8,'kalimantan-selatan':0.7,lampung:0.75,banten:0.65};
-const modelInfo={arima:{desc:'Time series statistical model',acc:92.5,variance:0.05},lstm:{desc:'Deep learning approach',acc:94.8,variance:0.08},'random-forest':{desc:'Machine learning ensemble',acc:91.2,variance:0.06},prophet:{desc:'Facebook forecasting model',acc:93.1,variance:0.07},sarima:{desc:'Seasonal ARIMA',acc:92.8,variance:0.05},ensemble:{desc:'Combined predictions',acc:95.3,variance:0.04}};
-const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const regions=['Jawa Barat','Jawa Tengah','Jawa Timur','Sumatera Utara','Sumatera Selatan'];
-let state={region:'all',commodity:'rice',model:'arima'};
-let fChart,rChart;
+// ============ DATA & CONFIG ============
+const COMMODITIES = {
+  rice:      {name:'Rice Paddy (Padi)',      icon:'🌾', base:150, regBase:450, riskBase:18.5},
+  corn:      {name:'Corn (Jagung)',           icon:'🌽', base:200, regBase:550, riskBase:21.0},
+  soybean:   {name:'Soybean (Kedelai)',       icon:'🫘', base:80,  regBase:180, riskBase:24.5},
+  cassava:   {name:'Cassava (Singkong)',      icon:'🥔', base:300, regBase:800, riskBase:16.0},
+  peanut:    {name:'Peanut (Kacang Tanah)',   icon:'🥜', base:60,  regBase:120, riskBase:26.0},
+  sugarcane: {name:'Sugarcane (Tebu)',        icon:'🎋', base:500, regBase:1200,riskBase:14.5}
+};
+const REGIONS = {
+  all:1,'jawa-barat':1.2,'jawa-tengah':1.1,'jawa-timur':1.15,
+  'sumatera-utara':0.9,'sumatera-selatan':0.85,'sulawesi-selatan':0.8,
+  'kalimantan-selatan':0.7,'lampung':0.75,'banten':0.65
+};
+const MODELS = {
+  arima:          {desc:'Time series statistical model', acc:92.5, var:0.05},
+  lstm:           {desc:'Deep learning approach',        acc:94.8, var:0.08},
+  'random-forest':{desc:'Machine learning ensemble',    acc:91.2, var:0.06},
+  prophet:        {desc:'Facebook forecasting model',   acc:93.1, var:0.07},
+  sarima:         {desc:'Seasonal ARIMA',               acc:92.8, var:0.05},
+  ensemble:       {desc:'Combined predictions',         acc:95.3, var:0.04}
+};
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const REGION_NAMES = ['Jawa Barat','Jawa Tengah','Jawa Timur','Sumatera Utara','Sumatera Selatan'];
+
+// Static SHAP data (per commodity slight variation)
+const SHAP_BASE = [
+  {feature:'Rainfall (mm)',       pos:true,  impact:0.45, desc:'Precipitation during growing season'},
+  {feature:'Temperature (°C)',    pos:true,  impact:0.32, desc:'Average temperature trends'},
+  {feature:'Soil Moisture',       pos:true,  impact:0.28, desc:'Soil water content levels'},
+  {feature:'Previous Yield',      pos:true,  impact:0.25, desc:'Historical production trends'},
+  {feature:'Planting Area (ha)',  pos:true,  impact:0.18, desc:'Total cultivated hectares'},
+  {feature:'Irrigation Coverage', pos:true,  impact:0.15, desc:'% of irrigated fields'},
+  {feature:'Drought Index',       pos:false, impact:-0.22,desc:'Standardised drought severity'},
+  {feature:'Pest Pressure',       pos:false, impact:-0.14,desc:'Reported pest outbreak frequency'},
+  {feature:'Market Price Shock',  pos:false, impact:-0.09,desc:'Commodity price volatility'},
+  {feature:'Labor Availability',  pos:true,  impact:0.10, desc:'Agricultural workforce levels'}
+];
+
+let state = {region:'all', commodity:'rice', model:'arima'};
+let fChart, rChart, evaChart, shapChart;
+let currentPage = 'dashboard';
+
+// ============ HELPERS ============
+function pseudoRng(seed){let s=seed;return()=>{s=(s*1664525+1013904223)&0xffffffff;return(s>>>0)/0xffffffff}}
 
 function genForecast(c,r,m){
-  const base=commodityInfo[c].base*(regionMult[r]||1);
-  const v=modelInfo[m].variance;
-  return months.map((mo,i)=>{
-    const val=base+i*2+Math.sin(i*Math.PI/6)*10;
-    return{month:mo,actual:i<6?Math.round(val+((i*7+3)%10-5)):null,forecast:Math.round(val+(i>=6?5:0)),lower:Math.round(val*(1-v)+(i>=6?5:0)),upper:Math.round(val*(1+v)+(i>=6?5:0))};
+  const base = COMMODITIES[c].base * (REGIONS[r]||1);
+  const v = MODELS[m].var;
+  const rng = pseudoRng(c.length*31+r.length*17);
+  return MONTHS.map((mo,i)=>{
+    const val = base + i*2 + Math.sin(i*Math.PI/6)*10;
+    const noise = (rng()-0.5)*5;
+    return {month:mo, actual:i<6?Math.round(val+noise):null,
+      forecast:Math.round(val+(i>=6?5:0)),
+      lower:Math.round(val*(1-v)+(i>=6?5:0)),
+      upper:Math.round(val*(1+v)+(i>=6?5:0))};
   });
 }
+
 function genRegional(c,m){
-  const base=commodityInfo[c].regBase;
-  const growth=m==='ensemble'?1.08:m==='lstm'?1.12:1.07;
-  return regions.map((reg,i)=>{const cur=Math.round(base*(1-i*0.15));return{region:reg,current:cur,forecast:Math.round(cur*growth)};});
+  const base = COMMODITIES[c].regBase;
+  const growth = m==='ensemble'?1.08:m==='lstm'?1.12:1.07;
+  return REGION_NAMES.map((reg,i)=>{
+    const cur = Math.round(base*(1-i*0.15));
+    return {region:reg, current:cur, forecast:Math.round(cur*growth)};
+  });
 }
 
-function update(){
-  const{region,commodity,model}=state;
-  const info=commodityInfo[commodity];
-  const mi=modelInfo[model];
-  const fd=genForecast(commodity,region,model);
-  const rd=genRegional(commodity,model);
-  document.getElementById('header-sub').textContent=info.name+' — Data-driven insights for agricultural planning';
-  document.getElementById('header-icon').textContent=info.icon;
-  document.getElementById('model-desc').textContent=mi.desc;
-  document.getElementById('m-accuracy').textContent=mi.acc+'%';
-  const totalCur=rd.reduce((s,r)=>s+r.current,0);
-  const totalFc=rd.reduce((s,r)=>s+r.forecast,0);
-  document.getElementById('m-production').textContent=(totalCur/1000).toFixed(1)+'K';
-  document.getElementById('m-growth').textContent=((totalFc-totalCur)/totalCur*100).toFixed(1)+'%';
-
-  if(fChart)fChart.destroy();
-  fChart=new Chart(document.getElementById('forecastChart'),{type:'line',data:{labels:months,datasets:[
-    {label:'Upper Band',data:fd.map(d=>d.upper),borderWidth:0,pointRadius:0,fill:'+1',backgroundColor:'rgba(72,149,239,0.12)',tension:0.4},
-    {label:'Lower Band',data:fd.map(d=>d.lower),borderWidth:0,pointRadius:0,fill:false,tension:0.4},
-    {label:'Actual',data:fd.map(d=>d.actual),borderColor:'#40916c',borderWidth:2.5,backgroundColor:'rgba(64,145,108,0.08)',pointBackgroundColor:'#40916c',pointRadius:4,fill:true,tension:0.4,spanGaps:false},
-    {label:'Forecast',data:fd.map(d=>d.forecast),borderColor:'#4895ef',borderWidth:2.5,borderDash:[6,4],pointBackgroundColor:'#4895ef',pointRadius:4,fill:false,tension:0.4}
-  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#999'}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#999'},title:{display:true,text:'Tonnes (000s)',font:{family:'DM Sans',size:11},color:'#bbb'}}}}});
-
-  if(rChart)rChart.destroy();
-  rChart=new Chart(document.getElementById('regionalChart'),{type:'bar',data:{labels:rd.map(r=>r.region),datasets:[
-    {label:'Current Year',data:rd.map(r=>r.current),backgroundColor:'#40916c',borderRadius:6},
-    {label:'Forecast',data:rd.map(r=>r.forecast),backgroundColor:'rgba(72,149,239,0.7)',borderRadius:6}
-  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{family:'DM Sans',size:11},boxWidth:10,padding:16}}},scales:{x:{grid:{display:false},ticks:{font:{family:'DM Sans',size:10},color:'#999',maxRotation:30}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#999'}}}}});
-
-  const factors=[{name:'Rainfall',value:'1,250mm',status:'good',icon:'☁️'},{name:'Irrigation',value:'92% coverage',status:'good',icon:'💧'},{name:'Temperature',value:'28.5°C avg',status:'warning',icon:'🌡️'},{name:'Soil Quality',value:'Optimal',status:'good',icon:'🌱'}];
-  document.getElementById('factors-panel').innerHTML=factors.map(f=>`<div class="factor-item factor-${f.status}"><div class="factor-left">${f.icon} <span>${f.name}</span></div><div style="display:flex;align-items:center;gap:8px"><span class="factor-val">${f.value}</span><span class="status-pill pill-${f.status}">${f.status}</span></div></div>`).join('');
+function getShapData(c,m){
+  const mult = m==='lstm'?1.1:m==='ensemble'?1.05:1.0;
+  const cMult = c==='rice'?1.0:c==='corn'?1.05:c==='soybean'?0.95:1.02;
+  return SHAP_BASE.map(f=>({...f, impact:+(f.impact*mult*cMult).toFixed(3)}))
+    .sort((a,b)=>Math.abs(b.impact)-Math.abs(a.impact));
 }
 
-document.getElementById('region-select').addEventListener('change',e=>{state.region=e.target.value;update();});
-document.getElementById('commodity-select').addEventListener('change',e=>{state.commodity=e.target.value;update();});
-document.getElementById('model-select').addEventListener('change',e=>{state.model=e.target.value;update();});
-update();
+function getEVAData(c,r){
+  const baseRisk = COMMODITIES[c].riskBase;
+  const rMult = REGIONS[r]||1;
+  const returns = [2,5,10,20,50,100,200];
+  return returns.map(period=>({
+    period,
+    prob: +(100/period).toFixed(2),
+    loss: +Math.min(92, 15 + period*0.62 + (1/rMult)*3 + (baseRisk*0.4)).toFixed(1)
+  }));
+}
+
+// ============ RENDER FUNCTIONS ============
+
+function renderDashboard(){
+  const {region,commodity,model} = state;
+  const mi = MODELS[model];
+  const fd = genForecast(commodity,region,model);
+  const rd = genRegional(commodity,model);
+
+  document.getElementById('m-accuracy').textContent = mi.acc+'%';
+  const totalCur = rd.reduce((s,r)=>s+r.current,0);
+  const totalFc  = rd.reduce((s,r)=>s+r.forecast,0);
+  document.getElementById('m-production').textContent = (totalCur/1000).toFixed(1)+'K';
+  document.getElementById('m-growth').textContent = ((totalFc-totalCur)/totalCur*100).toFixed(1)+'%';
+
+  // Forecast chart
+  if(fChart) fChart.destroy();
+  fChart = new Chart(document.getElementById('forecastChart'),{
+    type:'line',
+    data:{labels:MONTHS,datasets:[
+      {label:'CI Upper',data:fd.map(d=>d.upper),borderWidth:0,pointRadius:0,fill:'+1',backgroundColor:'rgba(72,149,239,0.13)',tension:0.4},
+      {label:'CI Lower',data:fd.map(d=>d.lower),borderWidth:0,pointRadius:0,fill:false,tension:0.4},
+      {label:'Actual',data:fd.map(d=>d.actual),borderColor:'#40916c',borderWidth:2.5,
+        backgroundColor:'rgba(64,145,108,0.07)',pointBackgroundColor:'#40916c',pointRadius:4.5,
+        fill:true,tension:0.4,spanGaps:false},
+      {label:'Forecast',data:fd.map(d=>d.forecast),borderColor:'#4895ef',borderWidth:2.5,
+        borderDash:[7,5],pointBackgroundColor:'#4895ef',pointRadius:4,fill:false,tension:0.4}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{
+        label:ctx=>{
+          if(ctx.dataset.label==='CI Upper'||ctx.dataset.label==='CI Lower') return null;
+          return `${ctx.dataset.label}: ${ctx.parsed.y?.toFixed(1)}K t`;
+        }
+      }}},
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#aaa'}},
+        y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#aaa'},
+           title:{display:true,text:'Tonnes (000s)',font:{family:'DM Sans',size:11},color:'#ccc'}}
+      }}
+  });
+
+  // Regional chart
+  if(rChart) rChart.destroy();
+  rChart = new Chart(document.getElementById('regionalChart'),{
+    type:'bar',
+    data:{labels:rd.map(r=>r.region),datasets:[
+      {label:'Current Year',data:rd.map(r=>r.current),backgroundColor:'#40916c',borderRadius:6},
+      {label:'Forecast',data:rd.map(r=>r.forecast),backgroundColor:'rgba(72,149,239,0.72)',borderRadius:6}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{font:{family:'DM Sans',size:11},boxWidth:10,padding:16}}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{family:'DM Sans',size:10},color:'#aaa',maxRotation:30}},
+        y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#aaa'}}
+      }}
+  });
+
+  // Factors
+  const factors = [
+    {name:'Rainfall',val:'1,250 mm',status:'good',icon:'🌧️'},
+    {name:'Irrigation',val:'92% coverage',status:'good',icon:'💧'},
+    {name:'Temperature',val:'28.5°C avg',status:'warning',icon:'🌡️'},
+    {name:'Soil Quality',val:'Optimal',status:'good',icon:'🌱'},
+    {name:'Drought Index',val:'Moderate',status:'warning',icon:'☀️'},
+    {name:'Pest Pressure',val:'Low',status:'good',icon:'🐛'}
+  ];
+  document.getElementById('factors-panel').innerHTML = factors.map(f=>`
+    <div class="factor-item factor-${f.status}">
+      <div class="factor-left">${f.icon} <span>${f.name}</span></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="factor-val">${f.val}</span>
+        <span class="status-pill pill-${f.status}">${f.status}</span>
+      </div>
+    </div>`).join('');
+}
+
+function renderShap(){
+  const sd = getShapData(state.commodity, state.model);
+  const maxAbs = Math.max(...sd.map(d=>Math.abs(d.impact)));
+
+  // Horizontal SHAP bars
+  const barHTML = sd.map(d=>{
+    const pct = Math.round((Math.abs(d.impact)/maxAbs)*80);
+    const col = d.impact>0?'shap-bar-pos':'shap-bar-neg';
+    const sign = d.impact>0?'+':'';
+    return `<div class="shap-row">
+      <div class="shap-label">${d.feature}</div>
+      <div class="shap-track">
+        <div class="${col}" style="width:${pct}%;min-width:4px"></div>
+      </div>
+      <div class="shap-val" style="color:${d.impact>0?'#2d6a4f':'#c22828'}">${sign}${d.impact.toFixed(3)}</div>
+    </div>
+    <div style="padding-left:170px;margin-bottom:8px;margin-top:-5px">
+      <span style="font-size:10px;color:#ccc">${d.desc}</span>
+    </div>`;
+  }).join('');
+  document.getElementById('shap-bars').innerHTML = barHTML;
+
+  // Drivers summary
+  const pos = sd.filter(d=>d.impact>0);
+  const neg = sd.filter(d=>d.impact<0);
+  document.getElementById('shap-pos-list').innerHTML = pos.slice(0,5).map(d=>`
+    <li><span>${d.feature}</span><span style="color:#2d6a4f;font-weight:700">+${(d.impact*100).toFixed(1)}%</span></li>`).join('');
+  document.getElementById('shap-neg-list').innerHTML = neg.map(d=>`
+    <li><span>${d.feature}</span><span style="color:#c22828;font-weight:700">${(d.impact*100).toFixed(1)}%</span></li>`).join('');
+
+  // Waterfall chart (top 6)
+  const top6 = sd.slice(0,6);
+  const baseVal = 100;
+  const labels = ['Base Value', ...top6.map(d=>d.feature.split('(')[0].trim()), 'Final Prediction'];
+  const running = [baseVal];
+  top6.forEach(d=>running.push(running[running.length-1]+d.impact*50));
+  const finalVal = running[running.length-1];
+
+  const floatData = [null,...top6.map(d=>d.impact>0?running[top6.indexOf(d)]:running[top6.indexOf(d)+1])];
+  const barData  = [baseVal,...top6.map(d=>Math.abs(d.impact)*50), finalVal];
+  const colors   = ['#aaa',...top6.map(d=>d.impact>0?'#40916c':'#e63946'),'#4895ef'];
+
+  if(shapChart) shapChart.destroy();
+  shapChart = new Chart(document.getElementById('shapChart'),{
+    type:'bar',
+    data:{labels,
+      datasets:[
+        {label:'Offset',data:[0,...top6.map((d,i)=>d.impact>0?running[i]:running[i]-Math.abs(d.impact)*50),0],
+          backgroundColor:'transparent',borderColor:'transparent'},
+        {label:'Contribution',data:barData,backgroundColor:colors,borderRadius:5}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{
+        label:ctx=>{
+          if(ctx.datasetIndex===0) return null;
+          if(ctx.dataIndex===0) return `Base Value: ${ctx.parsed.y?.toFixed(2)}`;
+          if(ctx.dataIndex===labels.length-1) return `Final: ${ctx.parsed.y?.toFixed(2)}`;
+          const d = top6[ctx.dataIndex-1];
+          return `${d.feature}: ${d.impact>0?'+':''}${(d.impact*50).toFixed(2)}`;
+        }}}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{family:'DM Sans',size:10},color:'#aaa',maxRotation:30}},
+        y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#aaa'},
+           title:{display:true,text:'Prediction Value (scaled)',font:{family:'DM Sans',size:11},color:'#ccc'}},
+        x2:{display:false}
+      },
+      interaction:{mode:'index'},
+      layout:{padding:{top:10}}}
+  });
+}
+
+function renderRisk(){
+  const {commodity,region} = state;
+  const ci = COMMODITIES[commodity];
+  const rm = REGIONS[region]||1;
+  const evaData = getEVAData(commodity,region);
+
+  // EVA Chart
+  if(evaChart) evaChart.destroy();
+  evaChart = new Chart(document.getElementById('evaChart'),{
+    type:'line',
+    data:{labels:evaData.map(d=>d.period+'-yr'),
+      datasets:[{
+        label:'Expected Loss (%)',
+        data:evaData.map(d=>d.loss),
+        borderColor:'#e63946',borderWidth:2.5,
+        backgroundColor:'rgba(230,57,70,0.1)',
+        fill:true,tension:0.4,pointBackgroundColor:'#e63946',pointRadius:5
+      }]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        annotation:{annotations:{
+          warning:{type:'line',yMin:30,yMax:30,borderColor:'#f4a261',borderWidth:1.5,borderDash:[5,4],
+            label:{content:'Warning 30%',display:true,position:'end',color:'#f4a261',font:{size:10}}},
+          critical:{type:'line',yMin:50,yMax:50,borderColor:'#e63946',borderWidth:1.5,borderDash:[5,4],
+            label:{content:'Critical 50%',display:true,position:'end',color:'#e63946',font:{size:10}}}
+        }}},
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#aaa'},
+           title:{display:true,text:'Return Period (years)',font:{family:'DM Sans',size:11},color:'#ccc'}},
+        y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'DM Sans',size:11},color:'#aaa'},
+           title:{display:true,text:'Expected Loss (%)',font:{family:'DM Sans',size:11},color:'#ccc'},
+           min:0,max:100}
+      }}
+  });
+
+  // Draw manual reference lines with canvas overlay
+  // (Chart.js 4 doesn't bundle annotation plugin from CDN — draw via AfterDraw plugin)
+
+  // Scenarios
+  const baseRisk = ci.riskBase;
+  const scenarios = [
+    {name:'Drought Event', emoji:'☀️', cls:'sc-drought',
+     prob:+(baseRisk*0.68).toFixed(1), impact:'High', loss:'25–40%', gauge:'gauge-orange'},
+    {name:'Flood Event',   emoji:'🌊', cls:'sc-flood',
+     prob:+(baseRisk*0.45).toFixed(1), impact:'Very High', loss:'40–60%', gauge:'gauge-red'},
+    {name:'Pest Outbreak', emoji:'🦟', cls:'sc-pest',
+     prob:+(baseRisk*0.82).toFixed(1), impact:'Medium',    loss:'15–30%', gauge:'gauge-yellow'},
+    {name:'Extreme Heat',  emoji:'🔥', cls:'sc-heat',
+     prob:+(baseRisk*0.58).toFixed(1), impact:'High',      loss:'20–35%', gauge:'gauge-orange'}
+  ];
+  const impactColor = {High:'hi','Very High':'hi',Medium:'med',Low:'lo'};
+  document.getElementById('risk-scenarios').innerHTML = scenarios.map(s=>`
+    <div class="scenario-card ${s.cls}">
+      <div class="sc-icon">${s.emoji}</div>
+      <div style="flex:1">
+        <div class="sc-name">${s.name}</div>
+        <div class="sc-stats">
+          <div class="sc-stat">
+            <strong class="${impactColor[s.impact]||'med'}">${s.prob}%</strong>Annual Prob.
+          </div>
+          <div class="sc-stat">
+            <strong>${s.impact}</strong>Impact Level
+          </div>
+          <div class="sc-stat">
+            <strong>${s.loss}</strong>Yield Loss
+          </div>
+        </div>
+        <div class="sc-gauge"><div class="sc-gauge-fill ${s.gauge}" style="width:${Math.min(100,s.prob*4)}%"></div></div>
+      </div>
+    </div>`).join('');
+
+  // Overall risk meters
+  const curRisk = (baseRisk*(1.2-rm*0.1)).toFixed(1);
+  const nxtRisk = (baseRisk*(1.4-rm*0.1)).toFixed(1);
+  const trendVal = (nxtRisk-curRisk).toFixed(1);
+  document.getElementById('r-current').textContent = curRisk+'%';
+  document.getElementById('r-next').textContent    = nxtRisk+'%';
+  document.getElementById('r-trend').textContent   = '+'+trendVal+'%';
+  document.getElementById('r-current-label').textContent = +curRisk>25?'High':'Moderate';
+  document.getElementById('r-next-label').textContent    = +nxtRisk>30?'High':'Elevated';
+
+  // Table
+  const cols = ['Return Period','Annual Prob.','Loss (%)','Risk Level','Affected Area'];
+  const riskLevel = l => l<30?'<span style="color:#2d6a4f;font-weight:600">Low</span>':l<50?'<span style="color:#e08800;font-weight:600">Moderate</span>':'<span style="color:#c22828;font-weight:600">High</span>';
+  const area = p => p<=10?'5–10%':p<=20?'10–25%':p<=50?'25–40%':p<=100?'40–60%':'60–80%';
+  const thead = `<thead><tr>${cols.map(c=>`<th style="padding:10px 14px;background:#f5f3ee;font-size:12px;font-weight:700;text-align:left;color:#555;letter-spacing:0.05em;text-transform:uppercase;border-bottom:2px solid #e8e5de">${c}</th>`).join('')}</tr></thead>`;
+  const tbody = `<tbody>${evaData.map((d,i)=>`<tr style="background:${i%2===0?'#fff':'#fafaf8'}">
+    <td style="padding:10px 14px;font-weight:600;color:#1a1a1a">${d.period} years</td>
+    <td style="padding:10px 14px;color:#555">${d.prob.toFixed(2)}%</td>
+    <td style="padding:10px 14px;font-weight:700;color:${d.loss>50?'#c22828':d.loss>30?'#e08800':'#2d6a4f'}">${d.loss}%</td>
+    <td style="padding:10px 14px">${riskLevel(d.loss)}</td>
+    <td style="padding:10px 14px;color:#888">${area(d.period)}</td>
+  </tr>`).join('')}</tbody>`;
+  document.getElementById('risk-table').innerHTML = thead+tbody;
+}
+
+// ============ PAGE ROUTER ============
+function showPage(page){
+  currentPage = page;
+  ['dashboard','shap','risk'].forEach(p=>{
+    document.getElementById('page-'+p).style.display = p===page?'block':'none';
+  });
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>{
+    b.classList.toggle('active',['dashboard','shap','risk'][i]===page);
+  });
+  const pageConfig = {
+    dashboard:{badge:'Live Dashboard',title:'Indonesia Agricultural<br>Production Forecast',sub:'Data-driven insights for agricultural planning'},
+    shap:{badge:'Model Explainability',title:'SHAP Feature<br>Importance Analysis',sub:'Understanding what drives forecast predictions'},
+    risk:{badge:'Risk Assessment',title:'Extreme Value<br>Risk Analysis',sub:'Probabilistic analysis of extreme production shortfall events'}
+  };
+  const pc = pageConfig[page];
+  document.getElementById('page-badge').textContent = pc.badge;
+  document.getElementById('page-title').innerHTML = pc.title;
+  document.getElementById('page-sub').textContent = pc.sub;
+  updateAll();
+}
+
+function updateAll(){
+  const {commodity,model} = state;
+  const ci = COMMODITIES[commodity];
+  const mi = MODELS[model];
+  document.getElementById('header-icon').textContent = ci.icon;
+  document.getElementById('model-desc').textContent = mi.desc;
+  if(currentPage==='dashboard') renderDashboard();
+  else if(currentPage==='shap') renderShap();
+  else if(currentPage==='risk') renderRisk();
+}
+
+// ============ EVENT LISTENERS ============
+document.getElementById('region-select').addEventListener('change',e=>{state.region=e.target.value;updateAll()});
+document.getElementById('commodity-select').addEventListener('change',e=>{state.commodity=e.target.value;updateAll()});
+document.getElementById('model-select').addEventListener('change',e=>{state.model=e.target.value;updateAll()});
+
+// Boot
+showPage('dashboard');
 </script>
 </body>
 </html>
