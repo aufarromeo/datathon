@@ -11,12 +11,12 @@ Panen.AI is a data-driven web dashboard designed to enhance food security planni
 
 **Extreme Value Risk Analysis**: Advanced probabilistic risk assessment using Generalized Extreme Value (GEV) distributions to calculate expected losses across various return periods (2-yr to 200-yr events)[cite: 1].
 
-**Climate Scenario Mapping**: Evaluates the annual exceedance probability and yield loss impact of extreme events like Droughts, Floods, Pest Outbreaks, and Extreme Heat[cite: 1].
+**Climate Scenario Mapping**: Evaluates the annual exceedance probability and yield loss impact of extreme events like Droughts, Floods, Pest Outbreaks, and Extreme Heat.
 
 ## 💻 Tech Stack
-**Frontend**: HTML5, CSS3 (Custom Variables & Grid/Flexbox layouts), Vanilla JavaScript[cite: 1].
+**Frontend**: HTML5, CSS3 (Custom Variables & Grid/Flexbox layouts), Vanilla JavaScript.
 
-**Data Visualization**: Chart.js for responsive line, bar, and custom SHAP/Waterfall visual representations[cite: 1].
+**Data Visualization**: Chart.js for responsive line, bar, and custom SHAP/Waterfall visual representations.
 
 **Cloud Infrastructure & AI Backend**: Microsoft Azure (Hosting, Data Storage, and Model Deployment).
 
